@@ -1,14 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ButtonIcon, HistoryList } from '../../components/molecules'
-import { colors, fonts } from '../../utils'
+import { colors, fonts, getData } from '../../utils'
+import axios from 'axios';
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, route }) {
+    const { data } = route.params;
+    const [saldo, setSaldo] = useState('')
+    useEffect(() => {
+        console.log(data)
+        // axios.get(`https://emoneydti.basicteknologi.co.id/index.php/api/dashboard?id_user=`)
+        //     .then(function (res) {
+        //         setSaldo(res.data.saldo)
+        //     }).catch(err => {
+        //         console.log(err)
+        //     })
+    }, [])
+
     return (
         <View style={styles.page}>
             <View style={styles.top}>
-                <Text style={styles.text}>Saldo Anda: </Text>
-                <Text style={styles.description}>Rp. 1.234.567.000</Text>
+                <Text style={styles.text}>Saldo : </Text>
+                <Text style={styles.description}>Rp. {saldo}</Text>
             </View>
 
             <View style={styles.mid}>
@@ -21,9 +35,7 @@ export default function Home({ navigation }) {
             </View>
             <View style={styles.bottom}>
                 <Text>5 Transaksi terakhir anda</Text>
-                <HistoryList />
-                <HistoryList />
-                <HistoryList />
+
             </View>
         </View>
     )
